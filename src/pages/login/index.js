@@ -1,7 +1,9 @@
 import React,{ Component } from 'react';
 //表单使用antd
 import { Form, Input, Button, Icon, message} from 'antd';
-import axios from 'axios';
+import { reqLogin} from '../../api';
+import { setItem} from '../../utils/storage';
+import data from '../../utils/store';
 
 import logo from './logo.png';
 import './index.less';
@@ -45,7 +47,7 @@ class Login extends Component{
         error：校验错误的信息
         values：对象，username，password
        */
-      if (!error){
+      /*if (!error){
         //无错误，校验成功，允许登录
         //发送ajax请求，使用axios
         axios.post('http://localhost:3001/login',values)
@@ -69,7 +71,26 @@ class Login extends Component{
             //重置密码
             this.props.form.resetFields(['password'])
           })
+      }*/
+      //首先优化axios请求，让请求后then方法里只返回成功的数据，catch方法只返回失败的信息
+      if (!error){
+        const {username,password} = values;
+        reqLogin(username,password)
+          .then((response) => {
+            //请求成功，允许登录
+            //先将数据存在内存中，再存到本地，然后跳转到路径admin
+            data.user = response;
+            setItem(response);
+            message.success('登陆成功');
+            this.props.history.replace('/');
+          })
+          .catch((error) => {
+            //请求失败,响应错误信息
+            message.error(error);
+
+          })
       }
+
 
       //有错误，浏览器会自动校验提示
     })
@@ -117,7 +138,6 @@ class Login extends Component{
             <Button type="primary" className="login-btn" htmlType="submit">登录</Button>
           </Item>
         </Form>
-
       </section>
     </div>
   }
