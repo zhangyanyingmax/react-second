@@ -84,11 +84,29 @@ export default class Admin extends Component{
           <LeftNav />
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }} />
+          <Header style={{ background: '#fff', padding: 0 }} className="header">
+            <div className="header-top">
+              <span>欢迎，admin</span>
+              <button>退出</button>
+            </div>
+            <div className="header-line">
+
+            </div>
+            <div className="header-bottom">
+              <div className="header-bottom-left">
+                <span>首页</span>
+              </div>
+              <div className="header-bottom-right">
+                <span>2019-08-15 10:29</span>
+                <span>天气</span>
+                <span>多云转晴</span>
+              </div>
+            </div>
+          </Header>
           <Content style={{ margin: '0 16px' }}>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>Bill is a cat.</div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          <Footer style={{ textAlign: 'center' }} className="admin-footer">推荐使用谷歌浏览器，可以获得更佳页面操作体验</Footer>
         </Layout>
       </Layout>
     );
