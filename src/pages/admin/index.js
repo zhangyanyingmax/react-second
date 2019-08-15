@@ -1,14 +1,34 @@
 import React,{ Component } from 'react';
-import { Spin, message} from 'antd';
+import { Spin, message, Layout} from 'antd';
+import { Link} from 'react-router-dom';
 import { getItem} from '../../utils/storage';
 import { reqValidateUser} from '../../api';
 import data from '../../utils/store';
+import logo from '../../assets/images/logo.png';
+import './index.less';
+import LeftNav from '../../components/left-nav';
+
+
+
+const { Header, Content, Footer, Sider } = Layout;
+
+
 
 export default class Admin extends Component{
 
   //定义初始化状态
   state = {
     isLoading: true,
+    collapsed:false,
+    isDisplay: 'block'
+  };
+
+  onCollapse = collapsed => {
+    console.log(collapsed);
+    this.setState({
+      collapsed ,
+      isDisplay: collapsed ? 'none':'block'
+    })
   };
 
   checkUserLogin = () => {
@@ -53,8 +73,24 @@ export default class Admin extends Component{
     // console.log(isLoading);
     if (isLoading) return <Spin tip="loading...." />;
 
-    return <div>
-      Admin...
-    </div>
+    return (
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
+          <Link className="admin-logo" to="/home">
+            <img src={logo} alt="logo"/>
+            <h1 style={{display:this.state.isDisplay}}>硅谷后台</h1>
+          </Link>
+          {/*定义组件动态生成menu菜单*/}
+          <LeftNav />
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }} />
+          <Content style={{ margin: '0 16px' }}>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>Bill is a cat.</div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        </Layout>
+      </Layout>
+    );
   }
 }
