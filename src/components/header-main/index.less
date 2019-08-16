@@ -1,0 +1,42 @@
+.header-main{
+  width: 100%;
+  background-color: #fff;
+  .header-main-top{
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+    border-bottom: 1px solid #1da57a;
+  }
+  .header-main-bottom{
+    height: 40px;
+    line-height: 40px;
+    h3{
+      float: left;
+      width: 25%;
+      text-align: center;
+      position: relative;
+      font-size: 20px;
+      &::after{
+        content: '';
+        border-bottom: 20px solid transparent;
+        border-top: 20px solid #fff;
+        border-right: 20px solid transparent;
+        border-left: 20px solid transparent;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -40px;
+
+      }
+    }
+    &>div{
+      float: right;
+      margin-right: 20px;
+      img{
+        width: 30px;
+        height: 20px;
+        margin: 0 10px;
+      }
+    }
+  }
+}
